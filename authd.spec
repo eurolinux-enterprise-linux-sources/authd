@@ -1,7 +1,7 @@
 Summary: A RFC 1413 ident protocol daemon
 Name: authd
 Version: 1.4.3
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: GPLv2+
 Group: System Environment/Daemons
 URL: https://fedorahosted.org/authd/
@@ -17,6 +17,10 @@ Patch4: authd-1.4.3-longopt-identifier.patch
 Patch5: authd-1.4.3-jiffies64.patch
 Patch6: authd-1.4.3-valist.patch
 Patch7: authd-1.4.3-cflags.patch
+
+# 965857, don't fail on negative uid
+Patch8: authd-1.4.3-negative_uid.patch
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: openssl-devel gettext
 Requires: xinetd
@@ -37,6 +41,7 @@ of pidentd.
 %patch5 -p1 -b .jiffies64
 %patch6 -p1 -b .valist
 %patch7 -p1 -b .cflags
+%patch8 -p0 -b .negative_uid
 sed -i -e "s|/etc|%{_sysconfdir}|" config.h
 
 %build
@@ -76,6 +81,10 @@ service xinetd reload
 %{_sbindir}/in.authd
 
 %changelog
+* Tue Jul 30 2013 Roman Rakus <rrakus@redhat.com> - 1.4.3-31
+- Don't fail on negative uid
+  Resolves: #994118
+
 * Mon Jun 14 2010 Roman Rakus <rrakus@redhat.com> - 1.4.3-30
 - Use only once defattr macro
   Resolves: #596150
