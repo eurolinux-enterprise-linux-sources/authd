@@ -1,7 +1,7 @@
 Summary: A RFC 1413 ident protocol daemon
 Name: authd
 Version: 1.4.3
-Release: 41%{?dist}
+Release: 42%{?dist}
 License: GPLv2+
 Group: System Environment/Daemons
 URL: https://fedorahosted.org/authd/
@@ -19,6 +19,7 @@ Patch4: authd-1.4.3-longopt-identifier.patch
 Patch5: authd-1.4.3-jiffies64.patch
 Patch6: authd-1.4.3-valist.patch
 Patch7: authd-1.4.3-license.patch
+Patch8: authd-1.4.3-relro.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: openssl-devel gettext help2man systemd-units
 Requires(post): systemd-units
@@ -43,9 +44,10 @@ of pidentd.
 %patch7 -p1 -b .license
 sed -i -e "s|/etc|%{_sysconfdir}|" config.h
 sed -i -e "/^CFLAGS=.*$/d" GNUmakefile
+%patch8 -p1 -b .relro
 
 %build
-CFLAGS="$RPM_OPT_FLAGS -std=c99 -DNDEBUG" make prefix=%{_prefix}
+CFLAGS="$RPM_OPT_FLAGS -std=c99 -DNDEBUG -fPIE" make prefix=%{_prefix}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -90,6 +92,10 @@ chmod o-rw %{_sysconfdir}/ident.key
 %{_unitdir}/*
 
 %changelog
+* Mon Jul 27 2015 Tomas Smetana <tsmetana@redhat.com> - 1.4.3-42
+- Build with PIE and full RELRO
+  Resolves: #1092568
+
 * Tue Mar 11 2014 Jan Synáček <jsynacek@redhat.com> - 1.4.3-41
 - Use CFLAGS correctly
   Resolves: #1070785

@@ -1,0 +1,12 @@
+diff -up authd-1.4.3/GNUmakefile.relro authd-1.4.3/GNUmakefile
+--- authd-1.4.3/GNUmakefile.relro	2015-07-27 15:25:20.612492532 +0200
++++ authd-1.4.3/GNUmakefile	2015-07-27 15:25:36.505436894 +0200
+@@ -10,7 +10,7 @@ URL=$(shell gcc -E -dM config.h|awk '$$2
+ PROJECT_ID := $(PACKAGE)-$(VERSION)
+ 
+ #CFLAGS=-std=gnu99 -Wall -W -g -O0
+-LDFLAGS=-lcrypto
++LDFLAGS=-lcrypto -pie -Wl,-z,relro,-z,now
+ 
+ targets := in.authd $(patsubst %.po,%.mo,$(wildcard *.po))
+ docs    := README.html COPYING
