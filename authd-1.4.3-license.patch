@@ -1,0 +1,26 @@
+diff -up authd-1.4.3/authd.c.license authd-1.4.3/authd.c
+--- authd-1.4.3/authd.c.license	2012-11-19 14:03:09.106765657 +0100
++++ authd-1.4.3/authd.c	2012-11-19 14:06:30.963307749 +0100
+@@ -16,7 +16,8 @@
+  *
+  *  You should have received a copy of the GNU General Public License
+  *  along with this program; if not, write to the Free Software
+- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
++ *  02110-1301, USA.
+  *
+  *  Initial Author: Adrian Havill <havill@redhat.com>
+  */
+diff -up authd-1.4.3/COPYING.license authd-1.4.3/COPYING
+--- authd-1.4.3/COPYING.license	2012-11-19 14:09:42.166714836 +0100
++++ authd-1.4.3/COPYING	2012-11-19 14:10:21.805213199 +0100
+@@ -5,7 +5,8 @@ NOTE: authd is released under the GPL wi
+ 		       Version 2, June 1991
+ 
+  Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+-                       59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
++
+  Everyone is permitted to copy and distribute verbatim copies
+  of this license document, but changing it is not allowed.
+ 
