@@ -1,7 +1,7 @@
 Summary: A RFC 1413 ident protocol daemon
 Name: authd
 Version: 1.4.3
-Release: 38%{?dist}
+Release: 41%{?dist}
 License: GPLv2+
 Group: System Environment/Daemons
 URL: https://fedorahosted.org/authd/
@@ -42,9 +42,10 @@ of pidentd.
 %patch6 -p1 -b .valist
 %patch7 -p1 -b .license
 sed -i -e "s|/etc|%{_sysconfdir}|" config.h
+sed -i -e "/^CFLAGS=.*$/d" GNUmakefile
 
 %build
-CFLAGS=$RPM_OPT_FLAGS make prefix=%{_prefix}
+CFLAGS="$RPM_OPT_FLAGS -std=c99 -DNDEBUG" make prefix=%{_prefix}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -89,6 +90,16 @@ chmod o-rw %{_sysconfdir}/ident.key
 %{_unitdir}/*
 
 %changelog
+* Tue Mar 11 2014 Jan Synáček <jsynacek@redhat.com> - 1.4.3-41
+- Use CFLAGS correctly
+  Resolves: #1070785
+
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1.4.3-40
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.4.3-39
+- Mass rebuild 2013-12-27
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.3-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
